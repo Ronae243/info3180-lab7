@@ -6,7 +6,7 @@ This file creates your application.
 """
 
 from app import app
-from flask import render_template, request, jsonify, send_file
+from flask import render_template, request, jsonify, send_file, flash
 from .forms import UploadForm
 from werkzeug.utils import secure_filename
 from flask_wtf.csrf import generate_csrf
@@ -33,7 +33,7 @@ def upload():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-            hash("File Uploaded Succesfully")
+            flash('File Uploaded Succesfully','sucessful')
             return jsonify({"message": "File Upload Successful", "filename": filename, "description": description})
     else:
         return jsonify({"errors":[{"filename": form_errors(form)}]})
